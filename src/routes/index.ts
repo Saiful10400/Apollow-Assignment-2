@@ -1,10 +1,16 @@
 import { Router } from "express"
+import authenticationRoutes from "../Modules/Authentication/authentication.routes"
 const routes=Router()
 
 
-routes.get("/",(req,res)=>{
-    res.send("you are right bro.")
-})
+const moduleRoutes=[
+    {
+        path:"/auth",
+        route:authenticationRoutes
+    }
+]
+
+moduleRoutes.forEach(item=>routes.use(item.path,item.route))
 
 
 

@@ -4,15 +4,27 @@ interface TsendResponse<T>{
 success:boolean,
 statusCode:number,
 message:string,
-data:T
+data:T,
+token?:string
 }
 
 const sendResponse=<T>(res:Response,data:TsendResponse<T>)=>{
-    res.status(data.statusCode).json({
-        success:true,
-        message:data.message,
-        data:data.data
-    })
+    if(data.token){
+        res.status(data.statusCode).json({
+            success:true,
+            statusCode:data.statusCode,
+            message:data.message,
+            token:data.token,
+            data:data.data
+        })
+    }else{
+        res.status(data.statusCode).json({
+            success:true,
+            statusCode:data.statusCode,
+            message:data.message,
+            data:data.data
+        })
+    }
 }
 
 export default sendResponse

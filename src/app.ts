@@ -10,7 +10,7 @@ const app=express()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({ origin: ['http://localhost:5173'], credentials: true }));
-app.use("/api/v1",routes)
+app.use("/api",routes)
 
 app.use(globalErrorHandler)
 // handle invalid route.
