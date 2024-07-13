@@ -28,6 +28,10 @@ const login=catchAsync(async(req:Request,res:Response)=>{
 })
 
 
+
+
+
+//  exporting the modules.
 const authenticationController={
     signup,
     login
