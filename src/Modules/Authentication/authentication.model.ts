@@ -31,5 +31,15 @@ const signupSchema=new Schema<Tuser>(
     }
 )
 
+signupSchema.post("save",function(docs,next){
+    this.password=undefined
+   next()
+})
+signupSchema.post("findOne",function(docs,next){
+    docs.password=undefined
+   next()
+
+})
+
 
 export const signupModel=model<Tuser>("User",signupSchema)
