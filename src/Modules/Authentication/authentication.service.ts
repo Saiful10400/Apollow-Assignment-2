@@ -6,6 +6,8 @@ import { signupModel } from "./authentication.model";
 import jwt from "jsonwebtoken";
 // 1. signup.
 const signup = async (payload: Tuser) => {
+  // console.log(payload,"this is data payload...")
+
   // let's check is the same user is exixt or not.
   const isUserExist = await signupModel.findOne({ email: payload.email });
   if (isUserExist)
@@ -13,15 +15,15 @@ const signup = async (payload: Tuser) => {
   const data = await signupModel.create(payload);
 
   // create jwt token.
-  const jwtPayload = {
-    id: data._id,
-    role: data.role,
-  };
-  const accessToken = jwt.sign(jwtPayload, config.jwtSecret as string, {
-    expiresIn: config.accessTokenLife,
-  });
+  // const jwtPayload = {
+  //   id: data._id,
+  //   role: data.role,
+  // };
+  // const accessToken = jwt.sign(jwtPayload, config.jwtSecret as string, {
+  //   expiresIn: config.accessTokenLife,
+  // });
 
-  return { data, accessToken };
+  return data
 };
 
 
@@ -34,11 +36,22 @@ const signup = async (payload: Tuser) => {
 
 //2. login.
 const login = async (payload: TuserLogin) => {
-  const result = await signupModel.findOne(payload);
-  if (!result)
+  const data = await signupModel.findOne(payload);
+  if (!data)
     throw new appError(httpStatus.UNAUTHORIZED, "Incorrect email or password!");
+data.password=undefined
 
-  return result;
+// create jwt token.
+const jwtPayload = {
+  id: data._id,
+  role: data.role,
+};
+const accessToken = jwt.sign(jwtPayload, config.jwtSecret as string, {
+  expiresIn: config.accessTokenLife,
+});
+
+
+  return {data,accessToken};
 };
 
 const AuthenticationService = {

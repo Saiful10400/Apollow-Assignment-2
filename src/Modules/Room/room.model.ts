@@ -1,5 +1,4 @@
 import { model, Schema } from "mongoose";
-import { boolean } from "zod";
 import { Troom } from "./room.interface";
 
 const roomSchema=new Schema({
@@ -28,7 +27,7 @@ const roomSchema=new Schema({
       required: true
     },
     isDeleted:{
-        type:boolean,
+        type:Boolean,
         default:false
     }
   });
