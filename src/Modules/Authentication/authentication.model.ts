@@ -29,10 +29,10 @@ const signupSchema = new Schema<Tuser>({
   },
 });
 
-// signupSchema.post("save", function (docs, next) {
-//   this.password = undefined; 
-//   next();
-// });
+signupSchema.post("save", function (docs, next) {
+  this.password = undefined; 
+  next();
+});
 
 signupSchema.statics.isUserExixtById=async function(id:string){
 return await signupModel.findById(id)
