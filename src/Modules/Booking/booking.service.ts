@@ -8,5 +8,11 @@ return result
 }
 
 
-const bookingService={createABooking}
+// 2. get all bookings.
+const getAllBookings=async()=>{
+    const result=await bookingModel.find().populate("slots").populate({path:"user",select:"-password"}).populate("room")
+    return result
+}
+
+const bookingService={createABooking,getAllBookings}
 export default bookingService

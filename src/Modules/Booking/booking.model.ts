@@ -36,6 +36,18 @@ const bookingSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isConfirmed:{
+    type:String,
+    default:"unconfirmed"
+  }
 });
+
+bookingSchema.virtual("totalAmount").get(function(this){
+  const pricePerSlot=this.room.pricePerSlot
+  const TotalSlots=this.slots.length
+  return pricePerSlot*TotalSlots
+})
+
+bookingSchema.set("toJSON",{virtuals:true})
 
 export const bookingModel = model<Tbooking>("booking", bookingSchema);

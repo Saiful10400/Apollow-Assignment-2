@@ -11,6 +11,8 @@ const router=Router()
 //1.create a booking.
 router.post("/",auth([userRole.admin,userRole.user]),zodValidation(bookingValidation.createSingleBooking),bookingController.createSingleBooking)
 
+//2. get all bookings
+router.get("/",auth([userRole.admin]),bookingController.getAllBookings)
 
 const bookingRoutes=router
 export default bookingRoutes

@@ -10,8 +10,13 @@ const createSingleBooking=catchAsync(async(req:Request,res:Response)=>{
     sendResponse(res,{data,success:true,statusCode:httpStatus.OK,message:"Booking created successfully"})
 })
 
+// 2. get all bookings
+const getAllBookings=catchAsync(async(req:Request,res:Response)=>{
+    const data=await bookingService.getAllBookings()
+    sendResponse(res,{data,success:true,statusCode:httpStatus.OK,message:"All bookings retrieved successfully"})
+})
 
 
 
-const bookingController={createSingleBooking}
+const bookingController={createSingleBooking,getAllBookings}
 export default bookingController
