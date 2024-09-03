@@ -8,7 +8,11 @@ import slootsController from "./slot.controller";
 const router=Router()
 
 //1. create a some sloots.
-router.post("/",auth([userRole.admin]),zodValidation(slotValidationSchema.create),slootsController.CreateSomeSloots)
+router.post("/",auth([userRole.admin]),zodValidation(slotValidationSchema.create),slootsController.CreateSomeSlots)
+
+
+//1.Get available sloots.
+router.get("/availability",auth([userRole.admin]),slootsController.getAllAvailableSlot)
 
 
 

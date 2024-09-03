@@ -1,3 +1,5 @@
+
+import mongoose, { Types } from "mongoose";
 import getDateObjFromTime from "../../Utility/getDateObjFromTime";
 import getHourMinutFromMiliSec from "../../Utility/getHourMinutFromMiliSec";
 import { Tslot } from "./slot.interface";
@@ -45,6 +47,25 @@ const createSomeSloots = async (payload: Tslot) => {
   return result;
 };
 
+//2. get all available sloots.
+const getAllAvailableSlots = async () => {
+  const result = await slotmodel.find({ isBooked: false });
+  return result;
+};
+
+// 2. get all available sloots.
+const getAllAvailableSlotsWithDateAndId = async ({date ,id}:{date:string , id: string,}) => {
+const room:Types.ObjectId=new mongoose.Types.ObjectId(id)
+  const result = await slotmodel.find({room,date:date,isBooked: false}).populate("room")
+  return result
+};
+
 // export modules.
-const slootsService = { createSomeSloots };
+const slootsService = {
+  createSomeSloots,
+  getAllAvailableSlotsWithDateAndId,
+  getAllAvailableSlots,
+};
 export default slootsService;
+
+///api/slots/availability?date=2024-06-15&roomId=60d9c4e4f3b4b544b8b8d1c5

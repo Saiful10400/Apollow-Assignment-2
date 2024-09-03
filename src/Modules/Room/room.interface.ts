@@ -1,8 +1,8 @@
 export interface Troom{
-        "name": "Conference Room",
-        "roomNo": 201,
-        "floorNo": 1,
-        "capacity": 20,
-        "pricePerSlot": 100,
+        "name": string,
+        "roomNo": number,
+        "floorNo": number,
+        "capacity": number,
+        "pricePerSlot": number,
         "amenities"?: string[]
 }

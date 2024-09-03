@@ -5,6 +5,7 @@ import { TerrorSource } from "../Errors/error.interface";
 import appError from "../Errors/appError";
 import { ZodError } from "zod";
 import zodErrorHandle from "../Errors/zodErrorHandle";
+import { JsonWebTokenError } from "jsonwebtoken";
 
 const globalErrorHandler:ErrorRequestHandler=(err,req,res,next)=>{
 
@@ -35,6 +36,10 @@ const globalErrorHandler:ErrorRequestHandler=(err,req,res,next)=>{
         statusCode=zodError.statusCode
         message=zodError.message
         errorSources=zodError.errorSources
+    }
+    else if(err instanceof JsonWebTokenError){
+        statusCode=400
+        message=err.message
     }
 
     return res.status(statusCode).send({
