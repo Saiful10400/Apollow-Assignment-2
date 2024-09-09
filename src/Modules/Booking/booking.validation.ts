@@ -14,7 +14,11 @@ const createSingleBooking=z.object({
     user:z.string().regex(objectIdRegex,{message:"Invalid MongoDB objectId."})
 })
 
+const updateASingleBooking=z.object({
+    isConfirmed:z.enum(["confirmed","unconfirmed"])
+})
 
 
-const bookingValidation={createSingleBooking}
+
+const bookingValidation={createSingleBooking,updateASingleBooking}
 export default bookingValidation

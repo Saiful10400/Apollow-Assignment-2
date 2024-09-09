@@ -3,11 +3,16 @@ import authenticationRoutes from "../Modules/Authentication/authentication.route
 import roomRoutes from "../Modules/Room/room.routes"
 import slootsRoutes from "../Modules/Slot/slot.routes"
 import bookingRoutes from "../Modules/Booking/booking.routes"
+import MyBookingroutes from "../Modules/MyBookings/myBookings.routes"
 
 const routes=Router()
 
 
 const moduleRoutes=[
+    {
+        path:"/my-bookings",
+        route:MyBookingroutes
+    },
     {
         path:"/auth",
         route:authenticationRoutes

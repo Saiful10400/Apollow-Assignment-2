@@ -1,5 +1,6 @@
 import mongoose, { model, Schema } from "mongoose";
 import { Tbooking } from "./booking.interface";
+import { roomModel } from "../Room/room.model";
 
 const bookingSchema = new Schema({
   date: {
@@ -48,6 +49,10 @@ bookingSchema.virtual("totalAmount").get(function(this){
   return pricePerSlot*TotalSlots
 })
 
-bookingSchema.set("toJSON",{virtuals:true})
 
+
+bookingSchema.set("toObject",{virtuals:true})
+// bookingSchema.set("toJSON",{virtuals:true})
+// bookingSchema.
+ 
 export const bookingModel = model<Tbooking>("booking", bookingSchema);

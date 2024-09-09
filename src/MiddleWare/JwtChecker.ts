@@ -9,7 +9,7 @@ import { signupModel } from "../Modules/Authentication/authentication.model"
 const jwtChecker=(validRoles:string[])=>{
     return catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
         const token=req.headers.authorization
-
+console.log(token,"This si token..")
         // 1. checking if the token is available.
         if(!token) throw new appError(httpStatus.UNAUTHORIZED,"You are an unauthorized user!")
 
@@ -24,7 +24,7 @@ const jwtChecker=(validRoles:string[])=>{
         
          if(!validRoles.includes(role)) throw new appError(httpStatus.UNAUTHORIZED,"You are not authorized user!")
 
-next()
+// next()
 
 
 

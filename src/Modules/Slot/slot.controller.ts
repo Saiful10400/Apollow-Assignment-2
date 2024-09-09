@@ -54,6 +54,12 @@ const getAllAvailableSlot=catchAsync(async(req: Request, res: Response)=>{
     const id=req.query?.roomId as string
 
     const data=await slootsService.getAllAvailableSlotsWithDateAndId({date,id})
+    if(data.length===0) return sendResponse(res,{
+      "success": false,
+      "statusCode": 404,
+      "message": "No Data Found",
+      "data":[]
+    })
     return sendResponse(res, {
       data,
       success: true,

@@ -11,7 +11,7 @@ token?:string
 const sendResponse=<T>(res:Response,data:TsendResponse<T>)=>{
     if(data.token){
         res.status(data.statusCode).json({
-            success:true,
+            success:data.success,
             statusCode:data.statusCode,
             message:data.message,
             token:data.token,
@@ -19,7 +19,7 @@ const sendResponse=<T>(res:Response,data:TsendResponse<T>)=>{
         })
     }else{
         res.status(data.statusCode).json({
-            success:true,
+            success:data.success,
             statusCode:data.statusCode,
             message:data.message,
             data:data.data

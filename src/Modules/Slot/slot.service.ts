@@ -23,6 +23,11 @@ const createSomeSloots = async (payload: Tslot) => {
     i < endTimeMils || i - aHour < endTimeMils;
     i += aHour
   ) {
+
+    if (i === endTimeMils) {
+      break;
+    }
+    
     if (i + aHour > endTimeMils) {
       const slootObj = {
         room: payload.room,
@@ -33,6 +38,8 @@ const createSomeSloots = async (payload: Tslot) => {
       DataArray.push(slootObj);
       break;
     }
+
+   
 
     const slootObj = {
       room: payload.room,

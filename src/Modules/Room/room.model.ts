@@ -32,5 +32,8 @@ const roomSchema=new Schema({
     }
   });
 
+  // roomSchema.static.getRoomPrice=async function(id:string){
+  //   return await roomModel.findById(id).pricePerSlot
+  // }
 
   export const roomModel=model<Troom>("room",roomSchema)
