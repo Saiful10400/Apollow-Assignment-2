@@ -17,6 +17,7 @@ const createSingleRoom=catchAsync(async (req:Request,res:Response)=>{
 const getRoom=catchAsync(async(req:Request,res:Response)=>{
     const {id}=req.params
     const data=await roomService.getRoom(id)
+    console.log(data)
     if(!data){
         const Empty:string[]=[]
       return  sendResponse(res,{data:Empty,success:false,statusCode:httpStatus.NOT_FOUND,message:"No Data Found"})
