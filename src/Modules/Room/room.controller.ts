@@ -17,6 +17,10 @@ const createSingleRoom=catchAsync(async (req:Request,res:Response)=>{
 const getRoom=catchAsync(async(req:Request,res:Response)=>{
     const {id}=req.params
     const data=await roomService.getRoom(id)
+    if(!data){
+        const Empty:string[]=[]
+      return  sendResponse(res,{data:Empty,success:false,statusCode:httpStatus.NOT_FOUND,message:"No Data Found"})
+    }
     const message=id?"Room retrieved successfully":"Rooms retrieved successfully"
     sendResponse(res,{data,success:true,statusCode:httpStatus.OK,message})
 
@@ -26,6 +30,10 @@ const getRoom=catchAsync(async(req:Request,res:Response)=>{
 const getAllRooms=catchAsync(async(req:Request,res:Response)=>{
     
     const data=await roomService.getAllRooms()
+    if(data.length===0){
+        const Empty:string[]=[]
+      return  sendResponse(res,{data:Empty,success:false,statusCode:httpStatus.NOT_FOUND,message:"No Data Found"})
+    }
     const message="Rooms retrieved successfully"
     sendResponse(res,{data,success:true,statusCode:httpStatus.OK,message})
 
@@ -36,6 +44,8 @@ const deleteSingleRoom=catchAsync(async(req:Request,res:Response)=>{
     const {id}=req.params
     if(!id) throw new appError(httpStatus.BAD_REQUEST,"You have to provide a valid id")
     const data=await roomService.deleteSingleRoom(id)
+
+    if(!data) throw new appError(httpStatus.NOT_FOUND,"Room id is not valid.")
     sendResponse(res,{data,success:true,statusCode:httpStatus.OK,message:"Room deleted successfully"})
 })
 

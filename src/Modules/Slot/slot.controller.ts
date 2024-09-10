@@ -15,7 +15,7 @@ const CreateSomeSlots = catchAsync(async (req: Request, res: Response) => {
   const endTimeMils = getDateObjFromTime(req.body?.endTime)?.getTime();
 
   //  validating is this room is available or not.
-  const isRoomAvailable=await roomModel.findById(req.body?.room)
+  const isRoomAvailable=await roomModel.findOne({_id:new mongoose.Types.ObjectId(req.body?.room),isDeleted:false})
   if(!isRoomAvailable)
     throw new appError(400, "Invalid room id.");
 
@@ -29,6 +29,7 @@ const CreateSomeSlots = catchAsync(async (req: Request, res: Response) => {
   if (endTimeMils < startTimeMils)
     throw new appError(400, "Start time should be earlyer from End time.");
 
+  
   const data = await slootsService.createSomeSloots(req.body);
   sendResponse(res, {
     data,
@@ -43,6 +44,10 @@ const getAllAvailableSlot=catchAsync(async(req: Request, res: Response)=>{
 
   if(Object.keys(req.query).length===0){
     const data=await slootsService.getAllAvailableSlots()
+    if(data.length===0){
+      const Empty:string[]=[]
+    return  sendResponse(res,{data:Empty,success:false,statusCode:httpStatus.NOT_FOUND,message:"No Data Found"})
+  }
     return sendResponse(res, {
       data,
       success: true,

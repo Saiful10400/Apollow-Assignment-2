@@ -56,14 +56,16 @@ const createSomeSloots = async (payload: Tslot) => {
 
 //2. get all available sloots.
 const getAllAvailableSlots = async () => {
-  const result = await slotmodel.find({ isBooked: false });
+  const result = await slotmodel.find({ isBooked: false }).populate("room")
   return result;
 };
 
 // 2. get all available sloots.
 const getAllAvailableSlotsWithDateAndId = async ({date ,id}:{date:string , id: string,}) => {
 const room:Types.ObjectId=new mongoose.Types.ObjectId(id)
+console.log(date,id)
   const result = await slotmodel.find({room,date:date,isBooked: false}).populate("room")
+  
   return result
 };
 

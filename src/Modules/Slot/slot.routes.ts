@@ -12,7 +12,7 @@ router.post("/",auth([userRole.admin]),zodValidation(slotValidationSchema.create
 
 
 //1.Get available sloots.
-router.get("/availability",auth([userRole.admin]),slootsController.getAllAvailableSlot)
+router.get("/availability",slootsController.getAllAvailableSlot)
 
 
 

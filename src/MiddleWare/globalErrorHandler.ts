@@ -12,7 +12,7 @@ const globalErrorHandler:ErrorRequestHandler=(err,req,res,next)=>{
     // setting initial value of error object property.
     let statusCode=500
     let message="Something went wrong!"
-    let errorSources:TerrorSource=[
+    let errorMessages:TerrorSource=[
         {
             path:"",
             message:"something went wrong!"
@@ -24,7 +24,7 @@ const globalErrorHandler:ErrorRequestHandler=(err,req,res,next)=>{
     if(err instanceof appError){
         statusCode=err.statusCode
         message=err.message
-        errorSources = [
+        errorMessages = [
             {
               path: '',
               message: err?.message,
@@ -35,9 +35,10 @@ const globalErrorHandler:ErrorRequestHandler=(err,req,res,next)=>{
         const zodError=zodErrorHandle(err)
         statusCode=zodError.statusCode
         message=zodError.message
-        errorSources=zodError.errorSources
+        errorMessages=zodError.errorSources
     }
     else if(err instanceof JsonWebTokenError){
+       
         statusCode=400
         message=err.message
     }
@@ -45,9 +46,9 @@ const globalErrorHandler:ErrorRequestHandler=(err,req,res,next)=>{
     return res.status(statusCode).send({
         success:false,
         message,
-        errorSources,
-        err,
-        stack:null
+        errorMessages,
+        // err,
+        stack:err?.stack||null
     })
 }
 

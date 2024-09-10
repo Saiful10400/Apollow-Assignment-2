@@ -14,9 +14,11 @@ router.post("/",auth([userRole.admin,userRole.user]),zodValidation(bookingValida
 //2. get all bookings
 router.get("/",auth([userRole.admin]),bookingController.getAllBookings)
 
-//2. update a booking
+//3. update a booking
 router.put("/:id",auth([userRole.admin]),zodValidation(bookingValidation.updateASingleBooking),bookingController.updateABooking)
 
+//4. delete a booking
+router.delete("/:id",auth([userRole.admin]),bookingController.deleteABooking)
 
 
 const bookingRoutes=router
